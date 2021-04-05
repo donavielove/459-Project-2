@@ -26,19 +26,6 @@ public class CompliantNode implements Node {
     }
 
     public void setFollowees(boolean[] followees) {
-        ArrayList<Integer> numFollowees = new ArrayList<Integer>();
-        int counter = 0;
-        while(counter < followees.length){ // continiously counts the number of followees until all are accounted for
-            if(followees[counter]){   // as long as there is another element in the array
-              numFollowees = numFollowees + counter;
-            }
-          counter++;
-        }
-    this.totalFollowees = numFollowees;
-    }
-
-/*
-    public void setFollowees(boolean[] followees) {
         
         ArrayList<Integer> trueFollowees = new ArrayList<Integer>();
         
@@ -47,12 +34,12 @@ public class CompliantNode implements Node {
             trueFollowees.add(i);
             }
         } 
-        this._trueFollowees = trueFollowees;
+        this._followees = trueFollowees;
     }
-*/
+
 
     public void setPendingTransaction(Set<Transaction> pendingTransactions) {
-            this._pendingTransactions = new ArrayList<Integer>();
+            this._pendingTransactions = new HashSet<>();
             for (Transaction tx : pendingTransactions) {
             this._pendingTransactions.add(tx.id);
             }
