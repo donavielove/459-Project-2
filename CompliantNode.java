@@ -11,23 +11,52 @@ public class CompliantNode implements Node {
     public Set<Transaction> _pendingTransactions = new HashSet<>();
 
     public CompliantNode(double p_graph, double p_malicious, double p_txDistribution, int numRounds) {
-        // IMPLEMENT THIS
+        
         this._p_graph = p_graph;
         this._p_malicious = p_malicious;
         this._p_txDistribution = p_txDistribution;
         this._numRounds = numRounds;
+
+          /* (From TestComplaintNode)
+      // p_graph: parameter for random graph: prob. that an edge will exist
+      // p_malicious: prob. that a node will be set to be malicious
+      // p_txDistribution: probability of assigning an initial transaction to each node
+      // numRounds: number of simulation rounds your nodes will run for */
+
     }
 
     public void setFollowees(boolean[] followees) {
-        // IMPLEMENT THIS
-        this._followees = followees;
-        this.blackListed = new boolean[followees.length];
+        ArrayList<Integer> numFollowees = new ArrayList<Integer>();
+        int counter = 0;
+        while(counter < followees.length){ // continiously counts the number of followees until all are accounted for
+            if(followees[counter]){   // as long as there is another element in the array
+              numFollowees = numFollowees + counter;
+            }
+          counter++;
+        }
+    this.totalFollowees = numFollowees;
     }
 
-    public void setPendingTransaction(Set<Transaction> pendingTransactions) {
-        // IMPLEMENT THIS
-        this._pendingTransactions = pendingTransactions;
+/*
+    public void setFollowees(boolean[] followees) {
+        
+        ArrayList<Integer> trueFollowees = new ArrayList<Integer>();
+        
+        for (int i = 0; i < followees.length; i++) {
+            if (followees[i]) {
+            trueFollowees.add(i);
+            }
+        } 
+        this._trueFollowees = trueFollowees;
     }
+*/
+
+    public void setPendingTransaction(Set<Transaction> pendingTransactions) {
+            this._pendingTransactions = new ArrayList<Integer>();
+            for (Transaction tx : pendingTransactions) {
+            this._pendingTransactions.add(tx.id);
+            }
+        }
 
     public Set<Transaction> getProposals() {
         // IMPLEMENT THIS
