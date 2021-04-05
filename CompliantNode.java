@@ -26,31 +26,31 @@ public class CompliantNode implements Node {
     }
 
     public void setFollowees(boolean[] followees) {
-        
-        ArrayList<Integer> trueFollowees = new ArrayList<Integer>();
-        
-        for (int i = 0; i < followees.length; i++) {
-            if (followees[i]) {
-            trueFollowees.add(i);
-            }
-        } 
-        this._followees = trueFollowees;
+        this._followees = followees;
     }
 
 
     public void setPendingTransaction(Set<Transaction> pendingTransactions) {
-            this._pendingTransactions = new HashSet<>();
-            for (Transaction tx : pendingTransactions) {
-            this._pendingTransactions.add(tx.id);
-            }
+            this._pendingTransactions = new HashSet<Transaction>(pendingTransactions);
         }
 
     public Set<Transaction> getProposals() {
-        // IMPLEMENT THIS
-        return this._pendingTransactions;
+        // Clear the old set, but hold the old values of runnung getProposals temporarily.
+        HashSet<Transaction> old = new HashSet<Transaction>(_pendingTransactions);
+        _pendingTransactions.clear();
+        return old;
     }
 
-    public void receiveCandidates(ArrayList<Integer[]> candidates) {
-        // IMPLEMENT THIS
-    }
+
+	public void receiveCandidates(ArrayList<Integer[]> candidates) {
+		// IMPLEMENT THIS
+		for (Integer[] Candidate : candidates) {
+			Transaction t = new Transaction(Candidate[0]);
+			if (_pendingTransactions.contains(t))
+				continue;
+			else {
+				_pendingTransactions.add(t);
+			}
+		}
+	}
 }
